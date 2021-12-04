@@ -28,7 +28,7 @@ pub fn solution2(input: &str) -> i32 {
                 horizontal_position += command.value;
                 depth += command.value * aim;
                 println!("depth increased by {} * {}", command.value, aim);
-            },
+            }
         }
     }
     depth * horizontal_position
@@ -48,14 +48,17 @@ struct Command {
 
 impl Command {
     fn from_str(input: &str) -> Command {
-        let split_line: Vec<&str> = input.split(" ").collect();
-        let value = split_line[1].parse::<i32>().expect(&*format!("Can't parse from line {}, {:?}", input, split_line));
+        let split_line: Vec<&str> = input.split(' ').collect();
+        let value = split_line[1].parse::<i32>().expect(&*format!(
+            "Can't parse from line {}, {:?}",
+            input, split_line
+        ));
 
         let (direction, value) = match split_line[0] {
             "forward" => (Direction::Horizontal, value),
             "up" => (Direction::Vertical, -value),
             "down" => (Direction::Vertical, value),
-            _ => panic!("unknown direction")
+            _ => panic!("unknown direction"),
         };
 
         Command { direction, value }
