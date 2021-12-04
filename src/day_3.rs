@@ -8,8 +8,8 @@ pub fn solution1(input: &[BitArray]) -> u32 {
     bit_array_to_u32(&most_common_bit_array) * bit_array_to_u32(&least_common_bit_array)
 }
 
-fn find_oxigen_generator_rating(input: &Vec<BitArray>) -> u32 {
-    let mut remaining = input.clone();
+fn find_oxigen_generator_rating(input: &[BitArray]) -> u32 {
+    let mut remaining: Vec<BitArray> = input.to_vec();
     let mut new_remaining = vec![];
 
     for bit_idx in 0..input[0].len() {
@@ -32,8 +32,8 @@ fn find_oxigen_generator_rating(input: &Vec<BitArray>) -> u32 {
     panic!("wtf bro");
 }
 
-fn find_co2_scrubber_rating(input: &Vec<BitArray>) -> u32 {
-    let mut remaining = input.clone();
+fn find_co2_scrubber_rating(input: &[BitArray]) -> u32 {
+    let mut remaining = input.to_vec();
     let mut new_remaining = vec![];
 
     for bit_idx in 0..input[0].len() {
@@ -56,7 +56,7 @@ fn find_co2_scrubber_rating(input: &Vec<BitArray>) -> u32 {
     panic!("wtf bro");
 }
 
-pub fn solution2(input: &Vec<BitArray>) -> u32 {
+pub fn solution2(input: &[BitArray]) -> u32 {
     let oxigin_generator_rating = find_oxigen_generator_rating(input);
     let co2_scrubber_rating = find_co2_scrubber_rating(input);
 
@@ -92,7 +92,7 @@ fn find_most_common(input: &[BitArray]) -> BitArray {
     weight_to_bit_array(&weight_array)
 }
 
-fn bit_array_to_u32(slice: &BitArray) -> u32 {
+fn bit_array_to_u32(slice: &[bool]) -> u32 {
     slice.iter().fold(0, |acc, &b| (acc << 1) + b as u32)
 }
 
@@ -103,11 +103,11 @@ fn calculat_weight_diff(value: bool) -> i32 {
     }
 }
 
-fn invert_bit_array(xs: &BitArray) -> BitArray {
+fn invert_bit_array(xs: &[bool]) -> BitArray {
     xs.iter().map(|&i| !i).collect()
 }
 
-fn weight_to_bit_array(input: &Vec<i32>) -> BitArray {
+fn weight_to_bit_array(input: &[i32]) -> BitArray {
     input
         .iter()
         .map(|&i| match i.cmp(&0) {
@@ -127,25 +127,6 @@ pub fn str_to_bit_array(input: &str) -> BitArray {
             _ => panic!("Expected 0 or 1"),
         })
         .collect();
-}
-
-fn display_bit_array(input: &BitArray) -> String {
-    input
-        .iter()
-        .map(|&i| match i {
-            true => '1',
-            false => '0',
-        })
-        .collect()
-}
-
-fn display_list_of_bit_array(input: &Vec<BitArray>) -> String {
-    input
-        .iter()
-        .skip(1)
-        .fold(display_bit_array(&input[0]), |acc, v| {
-            format!("{}, {}", acc, display_bit_array(v))
-        })
 }
 
 #[test]
