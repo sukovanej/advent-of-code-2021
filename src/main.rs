@@ -1,9 +1,11 @@
 mod day_1;
+mod day_2;
 
-use crate::day_1::{read_numbers, solution2};
+use crate::day_2::{solution2};
+use std::fs::read_to_string;
 
 fn main() {
-    let data = read_numbers("inputs/input_1_1.txt");
+    let data = read_to_string("inputs/input_2_1.txt").expect("expected file");
     let result = solution2(&data);
     println!("{}", result);
 }
