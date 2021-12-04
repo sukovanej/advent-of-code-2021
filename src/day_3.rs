@@ -77,16 +77,7 @@ fn find_least_common_on_position(input: &[BitArray], idx: usize) -> bool {
 }
 
 fn find_most_common_on_position(input: &[BitArray], idx: usize) -> bool {
-    let mut v = 0;
-
-    for bit_array in input {
-        v += match bit_array[idx] {
-            true => 1,
-            false => -1,
-        };
-    }
-
-    v >= 0
+    !find_least_common_on_position(input, idx)
 }
 
 fn find_most_common(input: &[BitArray]) -> BitArray {
