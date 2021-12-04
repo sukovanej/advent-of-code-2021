@@ -8,12 +8,12 @@ pub fn solution1(input: &[BitArray]) -> u32 {
     bit_array_to_u32(&most_common_bit_array) * bit_array_to_u32(&least_common_bit_array)
 }
 
-fn find_oxigen_generator_rating(input: &[BitArray]) -> u32 {
+fn find_rating(input: &[BitArray], find_fn: Box<dyn Fn(&[BitArray], usize) -> bool>) -> u32 {
     let mut remaining: Vec<BitArray> = input.to_vec();
     let mut new_remaining = vec![];
 
     for bit_idx in 0..input[0].len() {
-        let most_common_bit = find_most_common_on_position(&remaining, bit_idx);
+        let most_common_bit = find_fn(&remaining, bit_idx);
 
         for bit_array in remaining.iter() {
             if bit_array[bit_idx] == most_common_bit {
@@ -32,33 +32,9 @@ fn find_oxigen_generator_rating(input: &[BitArray]) -> u32 {
     panic!("wtf bro");
 }
 
-fn find_co2_scrubber_rating(input: &[BitArray]) -> u32 {
-    let mut remaining = input.to_vec();
-    let mut new_remaining = vec![];
-
-    for bit_idx in 0..input[0].len() {
-        let least_common_bit = find_least_common_on_position(&remaining, bit_idx);
-
-        for bit_array in remaining.iter() {
-            if bit_array[bit_idx] == least_common_bit {
-                new_remaining.push(bit_array.clone());
-            }
-        }
-
-        if new_remaining.len() == 1 {
-            return bit_array_to_u32(&new_remaining[0]);
-        }
-
-        remaining = new_remaining.clone();
-        new_remaining = vec![];
-    }
-
-    panic!("wtf bro");
-}
-
 pub fn solution2(input: &[BitArray]) -> u32 {
-    let oxigin_generator_rating = find_oxigen_generator_rating(input);
-    let co2_scrubber_rating = find_co2_scrubber_rating(input);
+    let oxigin_generator_rating = find_rating(input, Box::new(find_most_common_on_position));
+    let co2_scrubber_rating = find_rating(input, Box::new(find_least_common_on_position));
 
     oxigin_generator_rating * co2_scrubber_rating
 }
@@ -153,30 +129,4 @@ fn test_solution2_test() {
     .collect::<Vec<BitArray>>();
 
     assert_eq!(solution2(&input), 230);
-}
-
-#[test]
-fn test_find_oxigen_generator_rating() {
-    let input = vec![
-        "00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001",
-        "00010", "01010",
-    ]
-    .iter()
-    .map(|&s| str_to_bit_array(s))
-    .collect::<Vec<BitArray>>();
-
-    assert_eq!(find_oxigen_generator_rating(&input), 23);
-}
-
-#[test]
-fn test_find_co2_scrubber_rating() {
-    let input = vec![
-        "00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001",
-        "00010", "01010",
-    ]
-    .iter()
-    .map(|&s| str_to_bit_array(s))
-    .collect::<Vec<BitArray>>();
-
-    assert_eq!(find_co2_scrubber_rating(&input), 10);
 }
