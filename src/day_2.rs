@@ -20,10 +20,8 @@ pub fn solution2(input: &str) -> i32 {
     let mut aim = 0;
 
     for command in commands {
-        println!("{:?}", command);
         match command.direction {
             Direction::Vertical => {
-                depth += command.value;
                 aim += command.value;
             }
             Direction::Horizontal => {
@@ -32,11 +30,7 @@ pub fn solution2(input: &str) -> i32 {
                 println!("depth increased by {} * {}", command.value, aim);
             },
         }
-
-        println!("aim: {}", aim);
     }
-    println!("{}, {}", depth, horizontal_position);
-
     depth * horizontal_position
 }
 
