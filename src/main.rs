@@ -3,8 +3,9 @@ pub mod day_2;
 pub mod day_3;
 pub mod day_4;
 pub mod day_5;
+pub mod day_6;
 
-use crate::day_5::{parse_input, solution};
+use crate::day_6::{parse_input, solution1};
 
 // use clap::Parser;
 use lazy_static::lazy_static;
@@ -31,10 +32,10 @@ lazy_static! {
 fn main() {
     //let opts: Opts = Opts::parse();
 
-    let file_name = "inputs/input_5_1.txt";
+    let file_name = "inputs/input_6_1.txt";
     let input = parse_input(file_name);
 
-    println!("{}", solution(&input, false));
+    println!("{}", solution1(&input, 80));
 }
 
 // fn run_day_1(filename: &str) {
