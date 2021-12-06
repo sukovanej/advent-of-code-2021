@@ -70,20 +70,11 @@ fn create_board(input: &[Vector]) -> Board {
     let mut max_y = 0;
 
     for ((x1, y1), (x2, y2)) in input {
-        if x1 > &max_x {
-            max_x = *x1;
-        }
+        max_x = max_x.max(*x1);
+        max_x = max_x.max(*x2);
 
-        if x2 > &max_x {
-            max_x = *x2;
-        }
-
-        if y1 > &max_y {
-            max_y = *y1;
-        }
-        if y2 > &max_y {
-            max_y = *y2;
-        }
+        max_y = max_y.max(*y1);
+        max_y = max_y.max(*y2);
     }
 
     let mut board = vec![];
