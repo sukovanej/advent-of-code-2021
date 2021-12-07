@@ -1,26 +1,26 @@
 use std::fs::read_to_string;
 
-pub fn solution1(input: &[u64], days: u64) -> u64 {
-    let mut state = input.to_vec();
-    let mut day = 1;
+pub fn solution(input: &[usize], days: usize) -> u64 {
+    let mut state = [0; 9];
 
-    while day <= days {
-        for i in 0..state.len() {
-            if state[i] == 0 {
-                state[i] = 6;
-                state.push(8);
-            } else {
-                state[i] -= 1;
-            }
-        }
-
-        day += 1;
+    for &i in input {
+        state[i] += 1;
     }
 
-    state.len() as u64
+    for _ in 0..days {
+        let zeros = state[0];
+
+        for i in 1..9 {
+            state[i - 1] = state[i];
+        }
+        state[8] = zeros;
+        state[6] += zeros;
+    }
+
+    state.iter().sum()
 }
 
-pub fn parse_input(file_name: &str) -> Vec<u64> {
+pub fn parse_input(file_name: &str) -> Vec<usize> {
     read_to_string(file_name)
         .unwrap()
         .split(',')
@@ -32,6 +32,6 @@ pub fn parse_input(file_name: &str) -> Vec<u64> {
 fn test_day6_solution1() {
     let input = vec![3, 4, 3, 1, 2];
 
-    assert_eq!(solution1(&input, 80), 5934);
-    // assert_eq!(solution1(&input, 256), 26984457539);
+    assert_eq!(solution(&input, 80), 5934);
+    assert_eq!(solution(&input, 256), 26984457539);
 }
