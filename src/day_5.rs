@@ -87,7 +87,7 @@ fn create_board(input: &[Vector]) -> Board {
 }
 
 #[test]
-fn test_day5_solution1() {
+fn test_solution() {
     let file_name = "inputs/input_5_test.txt";
     let input = parse_input(file_name);
 

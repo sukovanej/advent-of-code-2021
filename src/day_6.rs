@@ -29,7 +29,7 @@ pub fn parse_input(file_name: &str) -> Vec<usize> {
 }
 
 #[test]
-fn test_day6_solution1() {
+fn test_solution() {
     let input = vec![3, 4, 3, 1, 2];
 
     assert_eq!(solution(&input, 80), 5934);

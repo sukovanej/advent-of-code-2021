@@ -70,7 +70,7 @@ fn read_input(input: &str) -> Vec<Command> {
 }
 
 #[test]
-fn test_day2_solution1() {
+fn test_solution1() {
     let input_data = "forward 5
 down 5
 forward 8
@@ -82,7 +82,7 @@ forward 2";
 }
 
 #[test]
-fn test_day2_solution2() {
+fn test_solution2() {
     let input_data = "forward 5
 down 5
 forward 8

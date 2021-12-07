@@ -106,7 +106,7 @@ pub fn str_to_bit_array(input: &str) -> BitArray {
 }
 
 #[test]
-fn test_solution1_test() {
+fn test_solution1() {
     let input = vec![
         "00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001",
         "00010", "01010",
@@ -119,7 +119,7 @@ fn test_solution1_test() {
 }
 
 #[test]
-fn test_solution2_test() {
+fn test_solution2() {
     let input = vec![
         "00100", "11110", "10110", "10111", "10101", "01111", "00111", "11100", "10000", "11001",
         "00010", "01010",
