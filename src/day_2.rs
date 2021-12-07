@@ -27,7 +27,6 @@ pub fn solution2(input: &str) -> i32 {
             Direction::Horizontal => {
                 horizontal_position += command.value;
                 depth += command.value * aim;
-                println!("depth increased by {} * {}", command.value, aim);
             }
         }
     }

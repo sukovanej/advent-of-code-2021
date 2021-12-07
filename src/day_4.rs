@@ -157,7 +157,6 @@ pub fn parse_input(file_name: &str) -> (Vec<u32>, Vec<Board>) {
 
         for _ in 0..BOARD_SIZE {
             let line_str = lines.next().unwrap().unwrap();
-            // println!("LINE: {}", line_str);
             board_numbers.push(
                 line_str
                     .split_whitespace()
