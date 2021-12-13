@@ -13,8 +13,9 @@ use std::collections::HashSet;
 /// 9 -> 6
 
 pub type Input = Vec<(Vec<SegmentType>, Vec<SegmentType>)>;
+pub type InputRef<'a> = &'a [(Vec<SegmentType>, Vec<SegmentType>)];
 
-pub fn solution1(input: &Input) -> u64 {
+pub fn solution1(input: InputRef) -> u64 {
     let unique_lengs = vec![2, 4, 3, 7];
     input
         .iter()
@@ -22,9 +23,7 @@ pub fn solution1(input: &Input) -> u64 {
             line.1
                 .iter()
                 .filter(|&i| unique_lengs.contains(&(i.len() as u64)))
-                .map(|i| i.to_owned())
-                .collect::<Vec<HashSet<char>>>()
-                .len() as u64
+                .count() as u64
         })
         .sum()
 }
@@ -59,12 +58,12 @@ pub fn parse_input(input: &str) -> Input {
         .collect()
 }
 
-fn vec_to_tuple<T: Clone>(xs: &Vec<Vec<T>>) -> (Vec<T>, Vec<T>) {
+fn vec_to_tuple<T: Clone>(xs: &[Vec<T>]) -> (Vec<T>, Vec<T>) {
     assert_eq!(xs.len(), 2);
     (xs[0].clone(), xs[1].clone())
 }
 
-pub fn solution2(input: &Input) -> u32 {
+pub fn solution2(input: InputRef) -> u32 {
     input.iter().map(decode_input_line).sum()
 }
 
@@ -74,12 +73,12 @@ fn decode_input_line((noise, output): &(Vec<SegmentType>, Vec<SegmentType>)) -> 
         .chain(output)
         .map(|i| i.to_owned())
         .collect::<Vec<SegmentType>>();
-    decode(&all_segments, &output)
+    decode(&all_segments, output)
 }
 
 type SegmentType = HashSet<char>;
 
-fn decode(all_segments: &Vec<SegmentType>, output: &Vec<SegmentType>) -> u32 {
+fn decode(all_segments: &[SegmentType], output: &[SegmentType]) -> u32 {
     let uniques = find_uniques(all_segments);
     output
         .iter()
@@ -104,18 +103,18 @@ fn decode_segment(uniques: &[SegmentType; 3], segment: &SegmentType) -> u32 {
         3 => 7,
         4 => 4,
         5 => {
-            if intersect_segments(&segment, &one_segment) == *one_segment {
+            if intersect_segments(segment, one_segment) == *one_segment {
                 3
-            } else if intersect_segments(&segment, &four_segment).len() == 3 {
+            } else if intersect_segments(segment, four_segment).len() == 3 {
                 5
             } else {
                 2
             }
         }
         6 => {
-            if intersect_segments(&segment, &seven_segment) != *seven_segment {
+            if intersect_segments(segment, seven_segment) != *seven_segment {
                 6
-            } else if intersect_segments(&segment, &four_segment) == *four_segment {
+            } else if intersect_segments(segment, four_segment) == *four_segment {
                 9
             } else {
                 0
@@ -126,7 +125,7 @@ fn decode_segment(uniques: &[SegmentType; 3], segment: &SegmentType) -> u32 {
     }
 }
 
-fn find_uniques(all_segments: &Vec<HashSet<char>>) -> [SegmentType; 3] {
+fn find_uniques(all_segments: &[HashSet<char>]) -> [SegmentType; 3] {
     let (mut one, mut four, mut seven) = (None, None, None);
 
     for segment in all_segments {
@@ -138,7 +137,7 @@ fn find_uniques(all_segments: &Vec<HashSet<char>>) -> [SegmentType; 3] {
         }
     }
 
-    [one, four, seven].map(|i| i.unwrap().clone())
+    [one, four, seven].map(|i| i.unwrap())
 }
 
 #[test]
