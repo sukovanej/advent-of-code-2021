@@ -7,40 +7,15 @@ pub mod day_6;
 pub mod day_7;
 pub mod day_8;
 pub mod day_9;
+pub mod day_13;
 
-use crate::day_9::{parse_input, solution1};
-
-// use clap::Parser;
-use lazy_static::lazy_static;
-use std::collections::HashMap;
-
-lazy_static! {
-    static ref DAYS_WITH_INPUT_FILES: HashMap<u32, Vec<&'static str>> = {
-        let mut map = HashMap::new();
-        map.insert(1, vec!["input_1_1.txt", "input_1_test.txt"]);
-        map.insert(2, vec!["input_2_1.txt"]);
-        map.insert(3, vec!["input_3_1.txt", "input_3_test.txt"]);
-        map.insert(4, vec!["input_4_1.txt", "input_4_test.txt"]);
-        map
-    };
-}
-
-// #[derive(Parser)]
-// #[clap(version = "1.0", author = "Milan Suk <milansuk@email.cz>")]
-// struct Opts {
-//     #[clap(short, long, parse(from_occurrences))]
-//     day: u32,
-// }
+use crate::day_13::{parse_input, solution2};
+use std::fs::read_to_string;
 
 fn main() {
-    //let opts: Opts = Opts::parse();
+    let file_name = "inputs/input_13_1.txt";
+    let input_content = read_to_string(file_name).unwrap();
+    let input = parse_input(&input_content);
 
-    let file_name = "inputs/input_9_1.txt";
-    let input = parse_input(file_name);
-
-    println!("{}", solution1(&input));
+    println!("{}", solution2(&input));
 }
-
-// fn run_day_1(filename: &str) {
-//
-// }

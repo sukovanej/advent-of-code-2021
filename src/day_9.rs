@@ -34,6 +34,7 @@ pub fn solution2(input: &Input) -> u32 {
     while !remaining.is_empty() {
         let item = remaining.iter().next().unwrap();
         let adjecents = get_adjacent(&input, item.0, item.1);
+        break;
     }
 
     basins.sort();
