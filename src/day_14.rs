@@ -10,7 +10,7 @@ pub fn solution1(input: &Input) -> u128 {
 }
 
 pub fn solution2(input: &Input) -> u128 {
-    solution(input, 40) - 1
+    solution(input, 40)
 }
 
 pub fn solution((template, rules): &Input, steps: u32) -> u128 {
@@ -25,7 +25,6 @@ pub fn solution((template, rules): &Input, steps: u32) -> u128 {
     }
 
     let mut occurences = get_occurences(&template);
-    println!("{}, {}", occurences.len(), template.len());
     occurences.sort_unstable();
     occurences.last().unwrap() - occurences.first().unwrap()
 }
@@ -39,7 +38,7 @@ fn get_occurences(template: &Template) -> Vec<u128> {
         *occurences_map_2.entry(*ch2).or_insert(0) += value;
     }
 
-    occurences_map_1.values().chain(occurences_map_2.values()).cloned().collect()
+    occurences_map_2.values().cloned().collect()
 }
 
 fn apply_rules(template: &Template, rules: &[Rule]) -> Template {
