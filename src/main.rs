@@ -8,12 +8,13 @@ pub mod day_7;
 pub mod day_8;
 pub mod day_9;
 pub mod day_13;
+pub mod day_14;
 
-use crate::day_13::{parse_input, solution2};
+use crate::day_14::{parse_input, solution2};
 use std::fs::read_to_string;
 
 fn main() {
-    let file_name = "inputs/input_13_1.txt";
+    let file_name = "inputs/input_14_1.txt";
     let input_content = read_to_string(file_name).unwrap();
     let input = parse_input(&input_content);
 

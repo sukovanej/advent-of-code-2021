@@ -1,5 +1,5 @@
-use std::fs::read_to_string;
 use std::collections::HashSet;
+use std::fs::read_to_string;
 
 /// 0 -> 6
 /// 1 -> 2
@@ -90,9 +90,7 @@ fn decode(all_segments: &[SegmentType], output: &[SegmentType]) -> u32 {
 }
 
 fn intersect_segments(left: &SegmentType, right: &SegmentType) -> SegmentType {
-    left.intersection(right)
-        .map(|&i| i)
-        .collect::<SegmentType>()
+    left.intersection(right).copied().collect::<SegmentType>()
 }
 
 fn decode_segment(uniques: &[SegmentType; 3], segment: &SegmentType) -> u32 {

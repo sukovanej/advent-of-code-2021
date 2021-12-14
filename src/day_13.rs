@@ -1,5 +1,3 @@
-use std::fs::read_to_string;
-
 pub enum Axis {
     X,
     Y,
@@ -157,31 +155,36 @@ fn vec_to_tuple<T: Clone>(xs: &[T]) -> (T, T) {
     (xs[0].clone(), xs[1].clone())
 }
 
-#[test]
-fn test_solution1() {
-    let test_input = read_to_string("inputs/input_13_test.txt").unwrap();
-    let parsed_input = parse_input(&test_input);
-    assert_eq!(solution1(&parsed_input), 17);
-}
+#[cfg(test)]
+mod test {
+    use std::fs::read_to_string;
+    use crate::day_13::*;
 
-#[test]
-fn test_solution1_2() {
-    let test_input = read_to_string("inputs/input_13_test_2.txt").unwrap();
-    let parsed_input = parse_input(&test_input);
-    assert_eq!(solution1(&parsed_input), 17);
-}
+    #[test]
+    fn test_solution1() {
+        let test_input = read_to_string("inputs/input_13_test.txt").unwrap();
+        let parsed_input = parse_input(&test_input);
+        assert_eq!(solution1(&parsed_input), 17);
+    }
 
-#[test]
-fn test_solution2() {
-    let test_input = read_to_string("inputs/input_13_test.txt").unwrap();
-    let parsed_input = parse_input(&test_input);
-    assert_eq!(solution2(&parsed_input), 16);
-}
+    #[test]
+    fn test_solution1_2() {
+        let test_input = read_to_string("inputs/input_13_test_2.txt").unwrap();
+        let parsed_input = parse_input(&test_input);
+        assert_eq!(solution1(&parsed_input), 17);
+    }
 
-#[test]
-fn test_solution2_2() {
-    let test_input = read_to_string("inputs/input_13_1.txt").unwrap();
-    let parsed_input = parse_input(&test_input);
-    assert_eq!(solution2(&parsed_input), 104);
-}
+    #[test]
+    fn test_solution2() {
+        let test_input = read_to_string("inputs/input_13_test.txt").unwrap();
+        let parsed_input = parse_input(&test_input);
+        assert_eq!(solution2(&parsed_input), 16);
+    }
 
+    #[test]
+    fn test_solution2_2() {
+        let test_input = read_to_string("inputs/input_13_1.txt").unwrap();
+        let parsed_input = parse_input(&test_input);
+        assert_eq!(solution2(&parsed_input), 104);
+    }
+}
