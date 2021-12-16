@@ -20,10 +20,6 @@ pub fn solution((template, rules): &Input, steps: u32) -> u128 {
         template = apply_rules(&template, rules);
     }
 
-    for ((l, r), v) in template.iter() {
-        println!("{}{}  -> {}", l, r, v);
-    }
-
     let mut occurences = get_occurences(&template);
     occurences.sort_unstable();
     occurences.last().unwrap() - occurences.first().unwrap()

@@ -8,8 +8,10 @@ pub mod day_7;
 pub mod day_8;
 pub mod day_9;
 pub mod day_10;
+pub mod day_11;
 pub mod day_13;
 pub mod day_14;
+pub mod day_15;
 
 use crate::day_14::{parse_input, solution2};
 use std::fs::read_to_string;
