@@ -54,27 +54,7 @@ pub fn solution1(input: InputRef) -> u32 {
         }
     }
 
-    let result = risks[size_y - 1][size_x - 1];
-
-    let (mut x, mut y) = (size_x - 1, size_y - 2);
-
-    while (x, y) != (0, 0) {
-        let (a, b, c, d) = (
-            risks[(x - 1).max(0)][y],
-            risks[(x + 1).min(size_x - 1)][y],
-            risks[x][(y - 1).max(0)],
-            risks[x][(y + 1).min(size_y - 1)],
-        );
-    }
-
-    for line in risks.iter() {
-        for i in line {
-            print!("{:6}", i);
-        }
-        println!();
-    }
-
-    result
+    risks[size_y - 1][size_x - 1]
 }
 
 pub fn solution2(input: InputRef) -> u32 {
@@ -88,7 +68,7 @@ fn multiple_input(input: InputRef) -> Input {
 
     for y in 0..(size_y * 5) {
         for x in 0..(size_x * 5) {
-            result[y][x] = (input[y % size_y][x % size_x] + (x / size_x) as u32 + (y / size_y) as u32);
+            result[y][x] = input[y % size_y][x % size_x] + (x / size_x) as u32 + (y / size_y) as u32;
 
             if result[y][x] > 9 {
                 result[y][x] = result[y][x] % 10 + 1;

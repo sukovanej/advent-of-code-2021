@@ -1,5 +1,4 @@
 use std::collections::HashSet;
-use std::fs::read_to_string;
 
 /// 0 -> 6
 /// 1 -> 2
@@ -138,37 +137,43 @@ fn find_uniques(all_segments: &[HashSet<char>]) -> [SegmentType; 3] {
     [one, four, seven].map(|i| i.unwrap())
 }
 
-#[test]
-fn test_solution2() {
-    let test_input = read_to_string("input/input_8_test.txt").unwrap();
-    let parsed_input = parse_input(&test_input);
-    assert_eq!(solution2(&parsed_input), 61229);
+#[cfg(test)]
+mod tests {
+    use crate::day_8::*;
+    use std::fs::read_to_string;
 
-    let test_input = read_to_string("input/input_8_1.txt").unwrap();
-    let parsed_input = parse_input(&test_input);
-    assert_eq!(solution2(&parsed_input), 1007675);
-}
+    #[test]
+    fn test_solution2() {
+        let test_input = read_to_string("input/input_8_test.txt").unwrap();
+        let parsed_input = parse_input(&test_input);
+        assert_eq!(solution2(&parsed_input), 61229);
 
-#[test]
-fn test_solution1_test() {
-    let input_filename = "inputs/input_8_test.txt";
-    let input = parse_input(input_filename);
+        let test_input = read_to_string("input/input_8_1.txt").unwrap();
+        let parsed_input = parse_input(&test_input);
+        assert_eq!(solution2(&parsed_input), 1007675);
+    }
 
-    assert_eq!(solution1(&input), 26);
-}
+    #[test]
+    fn test_solution1_test() {
+        let input_filename = "inputs/input_8_test.txt";
+        let input = parse_input(input_filename);
 
-#[test]
-fn test_solution1() {
-    let input_filename = "inputs/input_8_1.txt";
-    let input = parse_input(input_filename);
+        assert_eq!(solution1(&input), 26);
+    }
 
-    assert_eq!(solution1(&input), 473);
-}
+    #[test]
+    fn test_solution1() {
+        let input_filename = "inputs/input_8_1.txt";
+        let input = parse_input(input_filename);
 
-#[test]
-fn test_solution2_test() {
-    let input_filename = "inputs/input_8_1.txt";
-    let input = parse_input(input_filename);
+        assert_eq!(solution1(&input), 473);
+    }
 
-    assert_eq!(solution1(&input), 5353);
+    #[test]
+    fn test_solution2_test() {
+        let input_filename = "inputs/input_8_1.txt";
+        let input = parse_input(input_filename);
+
+        assert_eq!(solution1(&input), 5353);
+    }
 }

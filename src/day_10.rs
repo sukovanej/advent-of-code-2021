@@ -35,16 +35,14 @@ fn get_missing_chars(line: &Vec<char>) -> Option<Vec<char>> {
     for &ch in line {
         if is_open(ch) {
             stack.push(ch);
-        } else {
-            if let Some(&top) = stack.last() {
-                if is_matching(top, ch) {
-                    stack.pop();
-                } else {
-                    return None;
-                }
+        } else if let Some(&top) = stack.last() {
+            if is_matching(top, ch) {
+                stack.pop();
             } else {
                 return None;
             }
+        } else {
+            return None;
         }
     }
 
@@ -67,16 +65,14 @@ fn find_first_ilegal(line: &Vec<char>) -> Option<char> {
     for &ch in line {
         if is_open(ch) {
             stack.push(ch);
-        } else {
-            if let Some(&top) = stack.last() {
-                if is_matching(top, ch) {
-                    stack.pop();
-                } else {
-                    return Some(ch);
-                }
+        } else if let Some(&top) = stack.last() {
+            if is_matching(top, ch) {
+                stack.pop();
             } else {
                 return Some(ch);
             }
+        } else {
+            return Some(ch);
         }
     }
 

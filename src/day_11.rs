@@ -20,17 +20,23 @@ fn count_flashing_points(input: InputRef) -> u32 {
         .sum()
 }
 
+fn explode(input: InputRef) -> Input {
+    todo!()
+}
+
 fn run_step(input: InputRef) -> Input {
     let mut matrix = input.to_owned();
     let (size_y, size_x) = (input.len(), input[0].len());
+    let (size_yi, size_xi) = (size_y as i32, size_x as i32);
 
     for y in 0..size_y {
         for x in 0..size_x {
             matrix[y][x] += 1;
 
             if matrix[y][x] >= 9 {
-                for j in (y as i32 - 1).max(0)..(y as i32 + 2).min(size_y as i32) {
-                    for i in (x as i32 - 1).max(0)..(x as i32 + 2).min(size_x as i32) {
+                let (xi, yi) = (x as i32, y as i32);
+                for j in (yi - 1).max(0)..(yi + 2).min(size_yi) {
+                    for i in (xi - 1).max(0)..(xi + 2).min(size_xi) {
                         let (i, j) = (i as usize, j as usize);
                         if (i, j) == (x, y) {
                             continue;
