@@ -224,7 +224,7 @@ pub fn parse_input(input: &str) -> Input {
 
 #[cfg(test)]
 mod tests {
-    use crate::day_16::*;
+    use super::*;
     use std::fs::read_to_string;
 
     #[test]

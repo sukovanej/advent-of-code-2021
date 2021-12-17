@@ -94,7 +94,7 @@ pub fn parse_input(content: &str) -> Input {
 mod tests {
     use std::fs::read_to_string;
 
-    use crate::day_15::*;
+    use super::*;
 
     #[test]
     fn test_solution1() {

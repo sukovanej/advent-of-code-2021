@@ -93,7 +93,7 @@ fn parse_rule(input: &str) -> Rule {
 
 #[cfg(test)]
 mod test {
-    use crate::day_14::*;
+    use super::*;
     use std::fs::read_to_string;
 
     #[test]

@@ -158,7 +158,7 @@ fn vec_to_tuple<T: Clone>(xs: &[T]) -> (T, T) {
 #[cfg(test)]
 mod test {
     use std::fs::read_to_string;
-    use crate::day_13::*;
+    use super::*;
 
     #[test]
     fn test_solution1() {
