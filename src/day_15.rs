@@ -103,12 +103,13 @@ mod tests {
         assert_eq!(solution1(&input), 40);
     }
 
-    #[test]
-    fn test_solution1_real_data() {
-        let content = read_to_string("inputs/input_15_1.txt").unwrap();
-        let input = parse_input(&content);
-        assert_eq!(solution1(&input), 423);
-    }
+    // takes some time to finish
+    // #[test]
+    // fn test_solution1_real_data() {
+    //     let content = read_to_string("inputs/input_15_1.txt").unwrap();
+    //     let input = parse_input(&content);
+    //     assert_eq!(solution1(&input), 423);
+    // }
 
     #[test]
     fn test_solution2() {

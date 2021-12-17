@@ -13,6 +13,24 @@ pub fn solution1(input: InputRef) -> u32 {
     number_of_flashes
 }
 
+pub fn solution2(input: InputRef) -> u32 {
+    let mut matrix = input.to_owned();
+
+    matrix = run_step(&matrix);
+    let mut step = 1;
+
+    while !all_flashes(&matrix) {
+        matrix = run_step(&matrix);
+        step += 1;
+    }
+
+    step
+}
+
+fn all_flashes(matrix: InputRef) -> bool {
+    matrix.iter().all(|line| line.iter().all(|&i| i == 0))
+}
+
 fn count_flashing_points(input: InputRef) -> u32 {
     input
         .iter()
@@ -20,50 +38,58 @@ fn count_flashing_points(input: InputRef) -> u32 {
         .sum()
 }
 
-fn explode(input: InputRef) -> Input {
-    todo!()
+fn get_neighbors(input: InputRef, x: usize, y: usize) -> Vec<(usize, usize)> {
+    let (x, y) = (x as isize, y as isize);
+    let (size_x, size_y) = (input[0].len() as isize, input.len() as isize);
+    let directions: [(isize, isize); 8] = [(-1, 0), (1, 0), (0, 1), (0, -1), (1, 1), (1, -1), (-1, 1), (-1, -1)];
+    directions
+        .map(|(dx, dy)| (x + dx, y + dy))
+        .iter()
+        .filter(|(x, y)| *x >= 0 && *x < size_x && *y >= 0 && *y < size_y)
+        .map(|(x, y)| (*x as usize, *y as usize))
+        .collect()
 }
 
 fn run_step(input: InputRef) -> Input {
     let mut matrix = input.to_owned();
-    let (size_y, size_x) = (input.len(), input[0].len());
-    let (size_yi, size_xi) = (size_y as i32, size_x as i32);
+
+    for line in matrix.iter_mut() {
+        for v in line.iter_mut() {
+            *v += 1;
+        }
+    }
+
+    let mut previous_matrix = matrix;
+    let mut new_matrix = explode(&previous_matrix);
+
+    while new_matrix != previous_matrix {
+        previous_matrix = new_matrix;
+        new_matrix = explode(&previous_matrix);
+    }
+
+    new_matrix
+}
+
+fn explode(matrix: InputRef) -> Input {
+    let mut matrix = matrix.to_owned();
+    let (size_y, size_x) = (matrix.len(), matrix[0].len());
 
     for y in 0..size_y {
         for x in 0..size_x {
-            matrix[y][x] += 1;
-
-            if matrix[y][x] >= 9 {
-                let (xi, yi) = (x as i32, y as i32);
-                for j in (yi - 1).max(0)..(yi + 2).min(size_yi) {
-                    for i in (xi - 1).max(0)..(xi + 2).min(size_xi) {
-                        let (i, j) = (i as usize, j as usize);
-                        if (i, j) == (x, y) {
-                            continue;
-                        }
-
-                        matrix[j][i] += 1;
+            if matrix[y][x] == 10 {
+                matrix[y][x] = 0;
+                let neighbors = get_neighbors(&matrix, x, y);
+                for (u, v) in neighbors {
+                    if matrix[v][u] != 0 && matrix[v][u] <= 9 {
+                        matrix[v][u] += 1;
                     }
                 }
             }
         }
     }
 
-    for y in 0..size_y {
-        for x in 0..size_x {
-            if matrix[y][x] < 9 {
-                matrix[y][x] += 1;
-            }
-        }
-    }
-
-    for y in 0..size_y {
-        for x in 0..size_x {
-            if matrix[y][x] > 9 {
-                matrix[y][x] = 0;
-            }
-        }
-    }
+    // print_matrix(&matrix);
+    // println!();
 
     matrix
 }
@@ -77,18 +103,39 @@ pub fn parse_input(input: &str) -> Input {
 
 #[cfg(test)]
 mod tests {
-    use crate::day_11::*;
+    use super::*;
     use std::fs::read_to_string;
 
     #[test]
     fn test_solution1() {
         let content = read_to_string("inputs/input_11_test.txt").unwrap();
         let input = parse_input(&content);
-        assert_eq!(solution1(&input), 26397);
+        assert_eq!(solution1(&input), 1656);
     }
 
     #[test]
-    fn test_step() {
+    fn test_solution_real_data() {
+        let content = read_to_string("inputs/input_11_1.txt").unwrap();
+        let input = parse_input(&content);
+        assert_eq!(solution1(&input), 1665);
+    }
+
+    #[test]
+    fn test_solution2() {
+        let content = read_to_string("inputs/input_11_test.txt").unwrap();
+        let input = parse_input(&content);
+        assert_eq!(solution2(&input), 195);
+    }
+
+    #[test]
+    fn test_solution2_real_data() {
+        let content = read_to_string("inputs/input_11_1.txt").unwrap();
+        let input = parse_input(&content);
+        assert_eq!(solution2(&input), 235);
+    }
+
+    #[test]
+    fn test_step_1() {
         let input = "11111
 19991
 19191

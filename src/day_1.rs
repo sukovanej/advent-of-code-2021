@@ -18,7 +18,7 @@ pub fn solution1(depths: &[i32]) -> i32 {
 pub fn solution2(depths: &[i32]) -> i32 {
     let mut increases = 0;
 
-    for (&left, &right) in depths.iter().zip(depths.iter().skip(3)).into_iter() {
+    for (&left, &right) in depths.iter().zip(depths.iter().skip(3)) {
         if right > left {
             increases += 1;
         }

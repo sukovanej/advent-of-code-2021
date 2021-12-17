@@ -182,7 +182,7 @@ mod test {
     }
 
     #[test]
-    fn test_solution2_2() {
+    fn test_solution2_real_data() {
         let test_input = read_to_string("inputs/input_13_1.txt").unwrap();
         let parsed_input = parse_input(&test_input);
         assert_eq!(solution2(&parsed_input), 104);
