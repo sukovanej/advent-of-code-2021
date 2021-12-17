@@ -139,7 +139,7 @@ fn find_uniques(all_segments: &[HashSet<char>]) -> [SegmentType; 3] {
 
 #[cfg(test)]
 mod tests {
-    use crate::day_8::*;
+    use super::*;
     use std::fs::read_to_string;
 
     #[test]
